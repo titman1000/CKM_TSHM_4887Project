@@ -1,0 +1,4 @@
+```{r}
+file <- read.csv(file.choose())
+```
+
