@@ -1,4 +1,24 @@
 ```{r}
-file <- read.csv(file.choose())
+#import packages
+require('jsonlite')
 ```
+
+```{r}
+# Convert the data source format (JSON) to the dataframe.
+Result <- fromJSON(file.choose())
+
+```
+
+```{r}
+#Tidy up the date format to become readable, i.e., 2nd Sep 2021 => 2/9/2021.
+#Result$date <- as.Date(Result$date, "%d%B%Y"); Result$date
+delete_word = c("st","rd","nd","th")
+Result$date <- gsub(paste0(delete_word,collapse = "|"),"", Result$date)
+Result$date <- gsub(paste0(" ",collapse = "|"),"/", Result$date)
+
+Result$date <-gsub(paste0("Sep",collapse = "|"),"9", Result$date)
+Result$date <-gsub(paste0("Aug",collapse = "|"),"8", Result$date)
+unique(Result$date)
+```
+
 
