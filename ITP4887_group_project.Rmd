@@ -1,6 +1,7 @@
 ```{r}
 #import packages
 require('jsonlite')
+library(dplyr)
 ```
 
 ```{r}
@@ -21,4 +22,21 @@ Result$date <-gsub(paste0("Aug",collapse = "|"),"8", Result$date)
 unique(Result$date)
 ```
 
+```{r}
+#Fill all missing data with 0s except the sq. column.
+df <- data.frame()
+df <- Result$sq.
+Result[is.na(Result)] <- 0
+Result$sq. <- df
 
+cbind(
+   lapply(
+     lapply(Result, is.na)
+     , sum)
+   )
+```
+
+```{r}
+#Aggregate the number of corresponding facilities (Bed, Baths, Reception)
+Result %>% count(bed, baths, receptions)
+```
