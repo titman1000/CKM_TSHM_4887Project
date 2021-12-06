@@ -1,13 +1,13 @@
 ```{r}
 #import packages
 require('jsonlite')
-library(dplyr)
+library('stringr')
+library(readr)
 ```
 
 ```{r}
 # Convert the data source format (JSON) to the dataframe.
 Result <- fromJSON(file.choose())
-
 ```
 
 ```{r}
@@ -52,3 +52,22 @@ Result = subset(Result, select = -c(bed, bath, reception))
 
 Result <- Result[,c(1,2,3,4,5,6,9,7,8,10)]
 ```
+
+```{r}
+#Extract Property type from “types” column.
+test <- Result[,2]
+pattern <- ".*bed (.+) for.*"
+tem <- str_match(test, pattern)
+tem <- tem[,2]
+Result <- cbind(Result, tem)
+colnames(Result) <- c("price", "types", "address", "latitude", "longtitude", "date", "sq.", "TotalBeds", "TotalBaths", "TotalReceptions", "FlatType")
+
+#Result <- Result[1:(length(Result)-1)] if too much columns
+```
+
+```{r}
+#Output your pre-processed data to CSV format called ”Project_Housing.csv”.
+write.csv(x=Result, file = "Project_Housing.csv", row.names = FALSE)
+```
+
+
