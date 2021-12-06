@@ -38,5 +38,17 @@ cbind(
 
 ```{r}
 #Aggregate the number of corresponding facilities (Bed, Baths, Reception)
-Result %>% count(bed, baths, receptions)
+Result$bed = as.numeric(Result$bed) 
+Result$beds = as.numeric(Result$beds)
+Result$bath = as.numeric(Result$bath)
+Result$baths = as.numeric(Result$baths)
+Result$reception = as.numeric(Result$reception)
+Result$receptions = as.numeric(Result$receptions)
+
+Result$beds = Result$bed + Result$beds
+Result$baths = Result$bath + Result$baths
+Result$receptions = Result$reception + Result$receptions
+Result = subset(Result, select = -c(bed, bath, reception))
+
+Result <- Result[,c(1,2,3,4,5,6,9,7,8,10)]
 ```
