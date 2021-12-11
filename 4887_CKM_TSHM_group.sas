@@ -42,7 +42,7 @@ and terraced house? (10M)
 title 'Actual Sales by Product and Year';
 proc sgplot data=EADATA.Project_Data;
 	where FlatType in("semi-detached house" "terraced house");
-	vbar FlatType/response=TotalReceptions stat=freq;
+	vbar FlatType/group=TotalReceptions groupdisplay=cluster stat=freq;
 run;
 
 *What kind of property is contain the second most turnover? (5M);
